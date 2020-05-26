@@ -1,0 +1,101 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+
+{% block title %} | About Us {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-2 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">About Property On The Go </h1>
+          <p class="lead">Home has never been more important!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> About</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="about" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>We Search For The Perfect Home</h2>
+          <img src="{% static 'img/about.jpg' %}" alt="">
+          <p class="mt-4">PropertyOnTheGo is a Nigerian property portal powered by the Start.ng and HNG internship. Our name reflects the company's broader commitment to real estate in Nigeria and its
+              expertise in driving the innovations needed to shape the future of real-estate search solutions in Nigeria.
+              Our website in the Nigerian property market is ever growing with listings which include both public and private property. The listings include homes, houses, lands, shops, office spaces and other commercial properties.
+              We are continuously working to improve the accessibility of our web experience and we welcome feedback and accommodation requests.
+              If you wish to report an issue or seek an accommodation please contact us.</p>
+        </div>
+        <div class="col-md-4">
+          {% if mvp_realtors %}
+            {% for realtor in mvp_realtors %}
+            <div class="card">
+                <img class="card-img-top" src="{{ realtor.photo.url }}" alt="Seller of the month">
+                <div class="card-body">
+                  <h5 class="card-title">Seller Of The Month</h5>
+                  <h6 class="text-secondary">{{ realtor.name }}</h6>
+                  <p class="card-text">{{ realtor.description }}
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="content" class="py-2 bg-dark text-white text-center">
+    <h2 class="display-4">We Work For You</h2>
+    <h4>Our team is ever ready to satisfy your needs!</h4>
+    <hr>
+    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">View Our Featured Listings</a>
+  </section>
+
+  <!-- Team -->
+  <section id="team" class="py-3">
+    <div class="container">
+      <h2 class="text-center">Our Registered Agents</h2>
+      <div class="row text-center">
+        {% if realtors %}
+          {% for realtor in realtors %}
+          <div class="col-md-3">
+              <img src="{{ realtor.photo.url }}" alt="" class="w3-round">
+              <h4>{{ realtor.name }}</h4>
+              <p class="text-success">
+                <i class="fas fa-award text-success mb-3"></i> Realtor</p>
+              <hr>
+              <p>
+                <i class="fas fa-phone"></i> {{ realtor.phone }}</p>
+              <p>
+                <i class="fas fa-envelope-open"></i> {{ realtor.email }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-md-12">
+            <p>No Realtors Available</p>
+          </div>
+        {% endif %}       
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
