@@ -13,7 +13,10 @@ def index(request):
     paged_listings = paginator.get_page(page)
 
     context = {
-        'listings': paged_listings
+        'listings': paged_listings,
+        'state_choices': state_choices,
+        'bedroom_choices': bedroom_choices,
+        'price_choices': price_choices
     }
 
     return render(request, 'listings/listings.html', context)
@@ -42,7 +45,6 @@ def listing(request, listing_id):
         'new_comment': new_comment,
         'comment_form': comment_form,
     }
-
     return render(request,
                   'listings/listing.html', context)
 

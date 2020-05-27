@@ -1,17 +1,24 @@
-{% extends 'base.html' %}
-
+{% load static %}
 {% load humanize %}
+<head>
+  <title>Listing</title>
+  <link rel="shortcut icon" href="{% static 'img/homepage/home.svg' %}" type="image/x-icon">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/all.css' %}" rel="stylesheet">
+  <script src="{% static 'js/fontawesome.js' %}"></script>
+  <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</head>
 
-{% block title %} | {{ listing.title }} {% endblock %}
-
-{% block content %}
-<section id="showcase-inner" class="py-2 text-white">
+<section id="showcase-inner" class="py-2 text-black">
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
           <h1 class="display-4">{{ listing.title }}</h1>
           <p class="lead">
-            <i class="fas fa-map-marker">{{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}</i>
+            <i class="fas fa-map-marker"> {{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}</i>
             <i>{{ listing.status }}</i>
           </p>
         </div>
@@ -30,14 +37,11 @@
           <li class="breadcrumb-item">
             <a href="{% url 'listings' %}">Listings</a>
           </li>
-          <li class="breadcrumb-item active">{{ listing.title }}</li>
+          <li class="breadcrumb-item active">listing</li>
         </ol>
       </nav>
     </div>
   </section>
-
-  <!-- Alerts -->
-  {% include 'partials/_alerts.html' %}
 
   <!-- Listing -->
   <section id="listing" class="py-4">
@@ -215,28 +219,42 @@
       </div>
     </div>
   </div>
-   {% with comments.count as total_comments %}
-       <h3>
-           {{ total_comments }} Review{{ total_comments|pluralize }}
-        </h3>
-   {% endwith %}
-   {% for comment in comments %}
-       <div class="comment">
-           <p class="info">
-               {{ comment.name }}
-               {{ comment.created }}
-           </p>
-           {{ comment.body|linebreaks }}
-       </div>
-   {% endfor %}
-   {% if new_comment %}
-       <h3>Your Review has been added.</h3>
-   {% else %}
-       <h4>Add a new review</h4>
-       <form method="post">
-           {{ comment_form.as_p }}
-           {% csrf_token %}
-           <p><input type="submit" value="Add review"></p>
-       </form>
-   {% endif %}
-{% endblock %}
+
+<section>
+  <div class="container">
+    {% with comments.count as total_comments %}
+      <h3>
+        {{ total_comments }} Review{{ total_comments|pluralize }}
+      </h3>
+    {% endwith %}
+    {% for comment in comments %}
+      <div class="comment">
+        <p class="info">
+          {{ comment.name }}
+          {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+      </div>
+    {% endfor %}
+    {% if new_comment %}
+      <h3>Your Review has been added.</h3>
+    {% else %}
+      <h4>Add a new review</h4>
+      <form method="post">
+        {{ comment_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Add review"></p>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+  <!-- Footer -->
+<hr class="footer-hr m-0">
+<footer id="main-footer" class="py-2 text-white text-center">
+  <div class="container">
+    <p class="mt-4">Copyright &copy; 2020. <a class="copy-link" href="{% url 'index' %}">Property on the Go</a></p>
+      <h6> Powered by Start.ng</h6>
+  </div>
+</footer>
+

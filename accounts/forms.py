@@ -1,11 +1,4 @@
 from django import forms
-
-
-registration_option = (
-    ('User', 'User'),
-    ('Agent', 'Agent'),
-)
-
-
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 

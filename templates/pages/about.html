@@ -1,11 +1,18 @@
-{% extends 'base.html' %} 
-
 {% load static %}
+<head>
+  <title> | About Us</title>
+  <link rel="shortcut icon" href="{% static 'img/homepage/home.svg' %}" type="image/x-icon">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/all.css' %}" rel="stylesheet">
+  <script src="{% static 'js/fontawesome.js' %}"></script>
+  <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</head>
 
-{% block title %} | About Us {% endblock %}
 
-{% block content %}
-<section id="showcase-inner" class="py-2 text-white">
+<section id="showcase-inner" class="py-2 text-black">
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
@@ -22,7 +29,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{% url 'index' %}">
+            <a href="{%  url 'index' %}">
               <i class="fas fa-home"></i> Home</a>
           </li>
           <li class="breadcrumb-item active"> About</li>
@@ -36,7 +43,7 @@
       <div class="row">
         <div class="col-md-8">
           <h2>We Search For The Perfect Home</h2>
-          <img src="{% static 'img/about.jpg' %}" alt="">
+          <img src="{% static 'img/about.jpg' %}" width="720" height="300" alt="">
           <p class="mt-4">PropertyOnTheGo is a Nigerian property portal powered by the Start.ng and HNG internship. Our name reflects the company's broader commitment to real estate in Nigeria and its
               expertise in driving the innovations needed to shape the future of real-estate search solutions in Nigeria.
               Our website in the Nigerian property market is ever growing with listings which include both public and private property. The listings include homes, houses, lands, shops, office spaces and other commercial properties.
@@ -47,7 +54,7 @@
           {% if mvp_realtors %}
             {% for realtor in mvp_realtors %}
             <div class="card">
-                <img class="card-img-top" src="{{ realtor.photo.url }}" alt="Seller of the month">
+                <img class="card-img-top" src="{{ realtor.photo.url }}" alt="">
                 <div class="card-body">
                   <h5 class="card-title">Seller Of The Month</h5>
                   <h6 class="text-secondary">{{ realtor.name }}</h6>
@@ -72,30 +79,36 @@
 
   <!-- Team -->
   <section id="team" class="py-3">
-    <div class="container">
+    <div class="align-content-center">
       <h2 class="text-center">Our Registered Agents</h2>
-      <div class="row text-center">
-        {% if realtors %}
-          {% for realtor in realtors %}
-          <div class="col-md-3">
-              <img src="{{ realtor.photo.url }}" alt="" class="w3-round">
-              <h4>{{ realtor.name }}</h4>
-              <p class="text-success">
-                <i class="fas fa-award text-success mb-3"></i> Realtor</p>
-              <hr>
-              <p>
-                <i class="fas fa-phone"></i> {{ realtor.phone }}</p>
-              <p>
-                <i class="fas fa-envelope-open"></i> {{ realtor.email }}</p>
-            </div>
-          {% endfor %}
-        {% else %}
+        <div class="row text-center">
+          {% if realtors %}
+              {% for realtor in realtors %}
+                  <div class="col-md-3">
+                      <img src="{{ realtor.photo.url }}" alt="" class="rounded">
+                      <h5>{{ realtor.name }}</h5>
+                      <p class="text-success">
+                          <i class="fas fa-award text-success mb-3"></i> Realtor</p>
+                      <hr>
+                      <p>
+                          <i class="fas fa-phone"></i> {{ realtor.phone }}</p>
+                      <p>
+                          <i class="fas fa-envelope-open"></i> {{ realtor.email }}</p>
+                  </div>
+              {% endfor %}
+          {% else %}
           <div class="col-md-12">
             <p>No Realtors Available</p>
           </div>
-        {% endif %}       
+        {% endif %}
       </div>
     </div>
   </section>
 
-{% endblock %}
+  <hr class="footer-hr m-0">
+  <footer id="main-footer" class=" py-2 text-white text-center">
+    <div class="container">
+      <p class="mt-4">Copyright &copy; 2020. <a class="copy-link" href="{% url 'index' %}">Property on the Go</a>
+      <h6>Powered by Start.ng</h6></p>
+    </div>
+  </footer>

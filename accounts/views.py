@@ -13,23 +13,22 @@ def register(request):
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
-        phone_number = request.POST['phone_number']
+        account_type = request.POST['account_type']
 
         # Check if passwords match
         if password == password2:
-            # Check username
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'That username is taken')
+            # Check email
+            if User.objects.filter(email=email).exists():
+                messages.error(request, 'That email is being used')
                 return redirect('register')
             else:
-                if User.objects.filter(email=email).exists():
-                    messages.error(request, 'That email is being used')
+                if User.objects.filter(username=username).exists():
+                    messages.error(request, 'That username is taken already')
                     return redirect('register')
                 else:
                     # Looks good
-                    user = User.objects.create_user(username=username, password=password, email=email,
-                                                    first_name=first_name, last_name=last_name,
-                                                    phone_number=phone_number)
+                    user = User.objects.create_user(email=email, password=password, first_name=first_name,
+                                                    username=username, last_name=last_name)
                     # Login after register
                     # auth.login(request, user)
                     # messages.success(request, 'You are now logged in')
@@ -75,4 +74,4 @@ def dashboard(request):
     context = {
         'contacts': user_contacts
     }
-    return render(request, 'accounts/dashboard.html', context)
+    return render(request, 'accounts/userDashboard.html', context)
